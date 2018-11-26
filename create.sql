@@ -35,6 +35,7 @@ create table friendship(
 create table note(
 	id int primary key auto_increment,
 	account_id int not null,
+	title varchar(140) not null, -- twitter standard?
 	message TEXT not null,
 	longitude decimal(11, 8) not null, -- [-180, 180]
 	latitude decimal(10, 8) not null, -- [-90, 90]
@@ -48,7 +49,8 @@ create table note(
 	foreign key (account_id) references account(id),
 	check (repetition in ('DAY', 'WEEK', 'MONTH', 'YEAR', 'NONE')),
 	check (start_time < end_time),
-	check (radius > 0)
+	check (radius > 0),
+	check (length(message) < 65536)
 );
 
 create table tag(
