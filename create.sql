@@ -35,7 +35,7 @@ create table friendship(
 create table note(
 	id int primary key auto_increment,
 	account_id int not null,
-	message TEXT not null,
+	message varchar(140) not null,
 	longitude decimal(11, 8) not null, -- [-180, 180]
 	latitude decimal(10, 8) not null, -- [-90, 90]
 	radius int not null,
