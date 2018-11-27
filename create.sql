@@ -14,12 +14,12 @@ create table account(
 	check (length(password) >= 50) -- bcrypt's minimum length
 );
 
-create table location(
+/*create table location(
 	account_id int primary key,
 	longitude decimal(11, 8) not null, -- [-180, 180]
 	latitude decimal(10, 8) not null, -- [-90, 90]
 	foreign key (account_id) references account(id)
-);
+);*/
 
 create table friendship(
 	account_1 int not null, -- 
@@ -34,21 +34,42 @@ create table friendship(
 
 create table note(
 	id int primary key auto_increment,
-	account_id int not null,
 	message varchar(140) not null,
-	longitude decimal(11, 8) not null, -- [-180, 180]
-	latitude decimal(10, 8) not null, -- [-90, 90]
+	/*longitude decimal(11, 8) not null, -- [-180, 180]
+	latitude decimal(10, 8) not null, -- [-90, 90]*/
 	radius int not null,
 	visibility varchar(7) not null,
 	start_time timestamp not null,
 	end_time timestamp not null,
 	repetition varchar(5) not null, -- repeat is a keyword
 	allow_comments boolean not null,
-	unique (account_id, start_time, end_time, longitude, latitude, radius),
-	foreign key (account_id) references account(id),
+	/*unique (account_id, start_time, end_time, longitude, latitude, radius),*/
 	check (repetition in ('DAY', 'WEEK', 'MONTH', 'YEAR', 'NONE')),
 	check (start_time < end_time),
 	check (radius > 0)
+);
+
+create table location(
+	id int primary key auto_increment,
+	name varchar(32) not null,
+	longitude decimal(11, 8) not null, -- [-180, 180]
+	latitude decimal(10, 8) not null, -- [-90, 90]
+);
+
+create table notelocation(
+	note_id int not null,
+	location_id int not null,
+	primary key (note_id, location_id),
+	foreign key (note_id) references note(id),
+	foreign key (location_id) references location(id)
+);
+
+create table post(
+	account_id int not null,
+	note_id int not null,
+	primary key (account_id, note_id),
+	foreign key (account_id) references account(id),
+	foreign key (note_id) references note(id)
 );
 
 create table tag(
@@ -65,12 +86,21 @@ create table notetag(
 );
 
 create table comment(
+	id int primary key auto_increment,
 	account_id int not null,
 	note_id int not null,
-	description varchar(4096) not null,
-	primary key (account_id, note_id),
+	description varchar(140) not null,
+	primart key (id),
+	/*primary key (account_id, note_id), can not be a primary key*/
 	foreign key (account_id) references account(id),
 	foreign key (note_id) references note(id)
+);
+
+create table state(
+	id int primary key auto_increment,
+	start_time timestamp not null,
+	end_time timestamp not null,
+	description varchar(32) not null,
 );
 
 create table filter(
@@ -85,7 +115,8 @@ create table filter(
 	tag_id int not null,
 	unique (account_id, start_time, end_time, longitude, latitude, radius),
 	foreign key (account_id) references account(id),
-	foreign key (tag_id) references tag(id)
+	foreign key (tag_id) references tag(id),
+	foreign key (state_id) references state(id)
 );
 
 create table neighborhood(
