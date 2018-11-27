@@ -14,12 +14,12 @@ create table account(
 	check (length(password) >= 50) -- bcrypt's minimum length
 );
 
-/*create table location(
+create table user_location(
 	account_id int primary key,
 	longitude decimal(11, 8) not null, -- [-180, 180]
 	latitude decimal(10, 8) not null, -- [-90, 90]
 	foreign key (account_id) references account(id)
-);*/
+);
 
 create table friendship(
 	account_1 int not null, -- 
@@ -51,12 +51,12 @@ create table note(
 
 create table location(
 	id int primary key auto_increment,
-	name varchar(32) not null,
+	neighborhood varchar(32) not null,
 	longitude decimal(11, 8) not null, -- [-180, 180]
 	latitude decimal(10, 8) not null, -- [-90, 90]
-);
+)
 
-create table notelocation(
+create table note_location(
 	note_id int not null,
 	location_id int not null,
 	primary key (note_id, location_id),
@@ -77,7 +77,7 @@ create table tag(
 	name varchar(32) not null
 );
 
-create table notetag(
+create table note_tag(
 	note_id int not null,
 	tag_id int not null,
 	primary key (note_id, tag_id),
