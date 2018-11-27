@@ -35,15 +35,12 @@ create table friendship(
 create table note(
 	id int primary key auto_increment,
 	message varchar(140) not null,
-	/*longitude decimal(11, 8) not null, -- [-180, 180]
-	latitude decimal(10, 8) not null, -- [-90, 90]*/
 	radius int not null,
 	visibility varchar(7) not null,
 	start_time timestamp not null,
 	end_time timestamp not null,
 	repetition varchar(5) not null, -- repeat is a keyword
 	allow_comments boolean not null,
-	/*unique (account_id, start_time, end_time, longitude, latitude, radius),*/
 	check (repetition in ('DAY', 'WEEK', 'MONTH', 'YEAR', 'NONE')),
 	check (start_time < end_time),
 	check (radius > 0)
@@ -91,7 +88,6 @@ create table comment(
 	note_id int not null,
 	description varchar(140) not null,
 	primart key (id),
-	/*primary key (account_id, note_id), can not be a primary key*/
 	foreign key (account_id) references account(id),
 	foreign key (note_id) references note(id)
 );
