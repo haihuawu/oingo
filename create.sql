@@ -50,8 +50,8 @@ create table location(
 	id int primary key auto_increment,
 	neighborhood varchar(32) not null,
 	longitude decimal(11, 8) not null, -- [-180, 180]
-	latitude decimal(10, 8) not null, -- [-90, 90]
-)
+	latitude decimal(10, 8) not null -- [-90, 90]
+);
 
 create table note_location(
 	note_id int not null,
@@ -87,7 +87,6 @@ create table comment(
 	account_id int not null,
 	note_id int not null,
 	description varchar(140) not null,
-	primart key (id),
 	foreign key (account_id) references account(id),
 	foreign key (note_id) references note(id)
 );
@@ -96,7 +95,7 @@ create table state(
 	id int primary key auto_increment,
 	start_time timestamp not null,
 	end_time timestamp not null,
-	description varchar(32) not null,
+	description varchar(32) not null
 );
 
 create table filter(
