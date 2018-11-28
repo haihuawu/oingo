@@ -35,6 +35,7 @@ create table note(
 	repetition varchar(5) not null, -- repeat is a keyword
 	allow_comments boolean not null,
 	check (repetition in ('DAY', 'WEEK', 'MONTH', 'YEAR', 'NONE')),
+	check (visibility in ('SELF', 'FRIENDS', 'PUBLIC')),
 	check (start_time < end_time),
 	check (radius > 0)
 );
