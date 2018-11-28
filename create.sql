@@ -14,13 +14,6 @@ create table account(
 	check (length(password) >= 50) -- bcrypt's minimum length
 );
 
-create table user_location(
-	account_id int primary key,
-	longitude decimal(11, 8) not null, -- [-180, 180]
-	latitude decimal(10, 8) not null, -- [-90, 90]
-	foreign key (account_id) references account(id)
-);
-
 create table friendship(
 	account_1 int not null, -- 
 	account_2 int not null,
@@ -114,12 +107,3 @@ create table filter(
 	foreign key (state_id) references state(id)
 );
 
-create table neighborhood(
-	name varchar(128) not null,
-	longitude decimal(11, 8) not null, -- [-180, 180]
-	latitude decimal(10, 8) not null, -- [-90, 90]
-	city varchar(255),
-	state char(2) not null,
-	unique (longitude, latitude),
-	check (length(state) = 2)
-);
