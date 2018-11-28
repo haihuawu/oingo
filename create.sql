@@ -93,7 +93,7 @@ create table state(
 );
 
 create table filter(
-	id int primary key,
+	id int primary key auto_increment,
 	account_id int not null,
 	state_id int not null,
 	start_time timestamp not null,
