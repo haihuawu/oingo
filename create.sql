@@ -6,12 +6,12 @@ create table account(
 	id int primary key auto_increment,
 	email varchar(255) not null,
 	username varchar(32) not null,
-	password varchar(50) not null, -- bcrypt's maximum length
+	password varchar(72) not null, -- bcrypt's maximum length
 	first varchar(32) not null,
 	last varchar(32) not null,
 	unique (email),
 	unique (username),
-	check (length(password) >= 32) -- bcrypt's minimum length
+	check (length(password) >= 50) -- bcrypt's minimum length
 );
 
 create table friendship(
