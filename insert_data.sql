@@ -2,9 +2,9 @@ use oingo;
 
 
 insert into account(email, username, password, first, last) values 
-				("whh.annsempre@gmail.com" , "asempre", "123456" , "Haley" , "Wu"),
-				("xiaoli@gmail.com" , "XL", "135790" , "Xiao" , "Li"),
-				("ziyi.zhang@gmail.com", "ZYZHANG", "iamziyizhang", "Ziyi", "Zhang");
+				("whh.annsempre@gmail.com" , "asempre", "12345678901234567890123456789012345678901234567890" , "Haley" , "Wu"),
+				("xiaoli@gmail.com" , "XL", "135790AAAAA135790AAAAA135790AAAAA135790AAAAA135790AAAAA" , "Xiao" , "Li"),
+				("ziyi.zhang@gmail.com", "ZYZHANG", "iamziyizhangiamziyizhangiamziyizhangiamziyizhangiamziyizhang", "Ziyi", "Zhang");
 
 insert into friendship(account_1, account_2, request_status) values
 				(1, 2, "APPROVED"),
